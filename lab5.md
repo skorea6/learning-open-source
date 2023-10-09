@@ -1,72 +1,95 @@
-# Lab6 : Note on Git
+# Lab5 : Note on Shell Commands
 
-### Changes vs Snapshots
-- Storing data as changes to the base version vs Storing data as snapshots
-- Git uses 'snapshots'
-
-### Version Control
-- Local
-- Centralized
-- Distributed
-
-### Three Staes in Git
-- Modified
-- Staged
-- Comitted
-
-- Moddifed -> Stage : Stage fixes
-- Staged -> Comitted : Commit
-- Comitted -> Modified : Checkout the project
-
-### Git config
-- Git configurations are stored in 3 levels:
-  1. System level: --system option. Affects all uses and repositories on the system (file: /etc/gitconfig)
-  2. Global (user) level: --global option. Affects all repositories of a current user (file: ~/.config/git/config)
-  3. Local level: --local option. Specific to the current repository (file: .git/gitconfig)
- 
-- Each level overrides values in the previous level: system -> global -> local
+### I/O Redirection : Standard output
+- ">" : redirect output using ">" after command to create and save the output in a file
 ```sh
-$ git config --list
-$ git config --list --show-origin
-$ git config --global user.name "Min Joon Choi"
+$ ls -lh > file_list.txt
+```
+- ">>" : appends output to an existing file (if it already exitsts) or create and write to a new file if it doesn't exist.
+```sh
+$ ls -lh >> file_list.txt
+```
+- mix "<" and ">" together in a single line
+- sort words.txt file first and then save in sorted_words.txt
+```sh
+$ sort < words.txt > sorted_words.txt
 ```
 
-### Initializing a Repository in an Existing Directory
+### Pipelines "|"
+- Pipeline feeds output of previous command to input of next command
+- command1 | command2 | command3
 ```sh
-$ git init
+$ ls -lh | less
 ```
 
-### Checking Repository Status
+### Expansion
+- echo text : print the text
 ```sh
-$ git status
+$ echo print out the text
+```
+- echo * : print the all file names
+```sh
+$ echo *
+```
+- echo ~ : print the home directory
+```sh
+$ echo ~
 ```
 
-### Adding a new file to be staged (tracked)
+### Backslash
+- \ : to ignore line change in command("enter"), to enter a long command in multiple lines.
 ```sh
-$ git add [file_name]
-```
-- git add . : add all files to be staged
-
-### Unstaging a file
-```sh
-$ git rm –cached [file_name]
+$ ls -l \
+$  --reverse \
+$  --human-readable
 ```
 
-### Ignoring a file
-- make .gitignore file
-- *.a : ignore all .a files
-- !lib.a : but do track lib.a, even though you're ignoring .a files above
-- /TODO : only ignore the TODO file in the current directory
-- build/ : ignore all files in any directory named build
-
-### Commit
+### Permissions
+- Linux is a multi-user system.
+- Files and directories have a permission assigned differently to owner / group / others.
 ```sh
-$ git commit -m “commit message”
-$ git log
+$ ls -l /bin/bash
+```
+- -rwxrwxrwx : File Type(-: regular, d: directory), File Owner Permission(rwx), Group Owner Permission(rwx), Other User Permission(rwx)
+
+
+### Changing Permissions
+- chmod : changes permissions
+```sh
+$ chmod 600 some_file
+```
+- binary 600 = rw-------
+
+
+### Superuser
+- superuser : has all system administation authority.
+- Some commands need superuser's privilleges.
+- "sudo" : before the command if you are a superuser.
+```sh
+$ sudo some_command
+$ sudo -i
+```
+- "sudo -i" : make superuser
+
+
+### Text Editors
+- In Linux, there is CLI-based or GUI-based text editors.
+- vi, vim, emacs, nano, gedit, kwrite..
+
+
+### Shell Script
+- write a shell script
+```sh
+$ nano myscript.sh
+```
+- run a shell script
+```sh
+$ sh myscript.sh
 ```
 
-### Change branch name
+### History
+- "history" : to see previous command history.
+- Or, save it to a text file.
 ```sh
-$ git branch
-$ git branch -m master main
+$ history > history_command.txt
 ```
